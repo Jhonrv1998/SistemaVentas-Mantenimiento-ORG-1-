@@ -16,10 +16,10 @@ public class ClienteRepository {
         clientes.add(cliente);
     }
 
-    // BUG intencional: comparación de DNI con == en vez de equals
+    // BUG intencional: comparación de DNI con == en vez de equals --> RESUELTO
     public Cliente buscarPorDni(String dni) {
         for (Cliente c : clientes) {
-            if (c.getDni() == dni) {
+            if (c.getDni().equals(dni)) {
                 return c;
             }
         }

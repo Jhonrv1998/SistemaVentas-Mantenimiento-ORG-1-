@@ -25,15 +25,15 @@ public class ProductoRepository {
         return null;
     }
 
-    // Code smell: búsqueda lineal, no optimizada
-    public Producto buscarPorNombre(String nombre) {
-        for (Producto p : productos) {
-            if (p.getNombre().toLowerCase().contains(nombre.toLowerCase())) {
-                return p;
-            }
+    // Code smell: búsqueda lineal, no optimizada  --> RESUELTO
+   public Producto buscarPorNombre(String nombre) {
+    String nombreMinuscula = nombre.toLowerCase();
+    return productos.stream()
+            .filter(p -> p.getNombre().toLowerCase().contains(nombreMinuscula))
+            .findFirst()
+            .orElse(null);
         }
-        return null;
-    }
+
 
     public List<Producto> listar() {
         return productos;

@@ -1,5 +1,7 @@
 package app;
 
+import java.math.BigDecimal;
+
 import repository.ClienteRepository;
 import repository.ProductoRepository;
 import repository.VentaRepository;
@@ -28,11 +30,11 @@ public class Main {
         clienteService.registrarCliente("87654321", "Maria Lopez", "NORMAL");
         clienteService.registrarCliente("ABCD5678", "Cliente Bug", "NORMAL"); // DNI inválido pero pasa por bug
 
-        productoService.registrarProducto(1, "Laptop", 2500);
-        productoService.registrarProducto(2, "Mouse", 50);
-        productoService.registrarProducto(3, "Teclado", 120);
-        productoService.registrarProducto(4, "Monitor", 900);
-        productoService.registrarProducto(5, "Producto Bug", -100); // precio negativo permitido por bug
+        productoService.registrarProducto(1, "Laptop", BigDecimal.valueOf(2500.00));
+        productoService.registrarProducto(2, "Mouse", BigDecimal.valueOf(50));
+        productoService.registrarProducto(3, "Teclado",BigDecimal.valueOf( 120));
+        productoService.registrarProducto(4, "Monitor", BigDecimal.valueOf(900));
+        productoService.registrarProducto(5, "Producto Bug", BigDecimal.valueOf(-100)); // precio negativo permitido por bug
 
         // Venta 1
         ventaService.crearVenta("12345678");

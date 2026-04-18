@@ -1,5 +1,5 @@
 package model;
-
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,11 +35,15 @@ public class Venta {
         this.finalizada = true;
     }
 
-    public double calcularTotal() {
-        double total = 0;
-        for (VentaDetalle d : detalles) {
-            total += d.calcularSubtotal();
+    
+public BigDecimal calcularTotal() {
+    BigDecimal total = BigDecimal.ZERO; // Inicializa en 0
+    for (VentaDetalle d : detalles) {
+        if (d.calcularSubtotal() != null) {
+            // Usamos .add() para sumar objetos BigDecimal
+            total = total.add(d.calcularSubtotal());
         }
-        return total;
     }
+    return total;
+}
 }

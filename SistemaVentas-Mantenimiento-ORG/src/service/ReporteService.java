@@ -15,32 +15,46 @@ public class ReporteService {
         this.ventaRepo = ventaRepo;
     }
 
-    // Code smell: método largo
     public void mostrarReporteVentas() {
+    List<Venta> ventas = ventaRepo.listar();
 
-        List<Venta> ventas = ventaRepo.listar();
-
-        Console.info("=== REPORTE DE VENTAS ===");
-
-        int i = 1;
-        for (Venta v : ventas) {
-            Console.info("Venta #" + i + " Cliente: " + v.getCliente().getNombre());
-
-            for (VentaDetalle d : v.getDetalles()) {
-                Console.info("- " + d.getProducto().getNombre()
-                        + " x " + d.getCantidad()
-                        + " = " + d.calcularSubtotal());
-            }
-
-            Console.info("TOTAL: " + v.calcularTotal());
-            Console.info("-----------------------------");
-            i++;
-        }
+    // Corrección de lógica: Validar si no hay datos
+    if (ventas.isEmpty()) {
+        Console.info("No hay ventas registradas para generar el reporte.");
+        return;
     }
 
-    // BUG intencional: si no hay ventas, no informa nada
-    public void mostrarResumen() {
-        int totalVentas = ventaRepo.contarVentas();
-        Console.info("TOTAL VENTAS: " + totalVentas);
+    Console.info("=== REPORTE DE VENTAS ===");
+    int i = 1;
+    for (Venta v : ventas) {
+        imprimirCabeceraVenta(i++, v);
+        imprimirDetallesVenta(v);
+        Console.info("TOTAL: " + v.calcularTotal());
+        Console.info("-----------------------------");
     }
+    }
+
+// Métodos auxiliares para eliminar el "Método Largo"
+private void imprimirCabeceraVenta(int indice, Venta v) {
+    Console.info("Venta #" + indice + " Cliente: " + v.getCliente().getNombre());
+    }
+
+private void imprimirDetallesVenta(Venta v) {
+    for (VentaDetalle d : v.getDetalles()) {
+        Console.info("- " + d.getProducto().getNombre() 
+            + " x " + d.getCantidad() 
+            + " = " + d.calcularSubtotal());
+    }
+    }
+
+public void mostrarResumen() {
+    int totalVentas = ventaRepo.contarVentas();
+    // BUG corregido: Ahora informa explícitamente si está vacío
+    if (totalVentas == 0) {
+        Console.info("Resumen: No se realizaron ventas el día de hoy.");
+    } else {
+        Console.info("TOTAL VENTAS REALIZADAS: " + totalVentas);
+    }
+    }
+
 }

@@ -1,5 +1,7 @@
 package service;
 
+import java.math.BigDecimal;
+
 import model.Producto;
 import repository.ProductoRepository;
 import util.Console;
@@ -13,8 +15,8 @@ public class ProductoService {
         this.productoRepo = productoRepo;
     }
 
-    // BUG intencional: Validaciones.validarPrecio acepta 0 y negativos
-    public void registrarProducto(int id, String nombre, double precio) {
+    // BUG intencional: Validaciones.validarPrecio acepta 0 y negativos  RESUELTO
+    public void registrarProducto(int id, String nombre, BigDecimal precio) {
 
         if (!Validaciones.validarPrecio(precio)) {
             Console.error("Precio inválido");

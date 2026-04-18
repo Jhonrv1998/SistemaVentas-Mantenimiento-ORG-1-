@@ -38,10 +38,7 @@ public class VentaService {
     // Code smell: repetición de mensajes y validaciones
     public void agregarProductoVenta(int idProducto, int cantidad) {
 
-        if (ventaActual == null) {
-            Console.error("No hay venta activa");
-            return;
-        }
+        validarVentaActiva();
 
         Producto producto = productoService.buscarProducto(idProducto);
 
@@ -61,10 +58,7 @@ public class VentaService {
 
     public void finalizarVenta() {
 
-        if (ventaActual == null) {
-            Console.error("No hay venta activa");
-            return;
-        }
+        validarVentaActiva();
 
         ventaActual.finalizar();
         ventaRepo.guardar(ventaActual);
@@ -75,5 +69,11 @@ public class VentaService {
 
     public Venta obtenerVentaActual() {
         return ventaActual;
+    }
+
+    public void validarVentaActiva(){
+        if (ventaActual == null) {
+            Console.error("No hay venta activa");
+        }
     }
 }

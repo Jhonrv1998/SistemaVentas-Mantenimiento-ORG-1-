@@ -1,12 +1,14 @@
 package model;
 
+import java.math.BigDecimal;
+
 public class Producto {
 
     private int id;
     private String nombre;
-    private double precio; // Code smell: uso de double para dinero
+    private BigDecimal precio; // Code smell: uso de double para dinero
 
-    public Producto(int id, String nombre, double precio) {
+    public Producto(int id, String nombre, BigDecimal precio) {
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
@@ -20,11 +22,11 @@ public class Producto {
         return nombre;
     }
 
-    public double getPrecio() {
+    public BigDecimal getPrecio() {
         return precio;
     }
 
-    public void setPrecio(double precio) {
+    public void setPrecio(BigDecimal precio) {
         this.precio = precio;
     }
 }

@@ -1,4 +1,5 @@
 package model;
+import java.math.BigDecimal;
 
 public class VentaDetalle {
 
@@ -18,8 +19,13 @@ public class VentaDetalle {
         return cantidad;
     }
 
-    public double calcularSubtotal() {
-        // BUG intencional: si cantidad negativa, subtotal negativo (no valida)
-        return producto.getPrecio() * cantidad;
+    public BigDecimal calcularSubtotal() {
+    // 1. Validar lógica: si la cantidad es menor o igual a cero, el subtotal es 0
+    if (cantidad <= 0 || producto.getPrecio() == null) {
+        return BigDecimal.ZERO;
     }
+    
+    // 2. Usar el método multiply para BigDecimal
+    return producto.getPrecio().multiply(new BigDecimal(cantidad));
+}
 }
